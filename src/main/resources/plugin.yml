@@ -1,0 +1,6 @@
+name: DropName
+version: '${project.version}'
+main: com.sheepion.dropname.DropName
+api-version: 1.18
+authors: [ _Sheepion ]
+description: add holographic name to drops
