@@ -1,6 +1,8 @@
 package com.sheepion.dropname.listener;
 
 import com.sheepion.dropname.DropName;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TranslatableComponent;
 import org.bukkit.World;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
@@ -69,16 +71,18 @@ public class AddNameToDrops implements Listener {
             //处理颜色代码
             customName = customName.replace("&", "§");
         } else {
-            customName = item.getItemStack().getType().toString();
+            customName = item.getItemStack().getType().getItemTranslationKey();
         }
+        TranslatableComponent translatableComponent = Component.translatable(customName);
+        String suffix = "";
         //添加物品数量
         if (amount > 1) {
-            customName += " §ex" + amount + " ";
+            suffix += " §ex" + amount + " ";
         }
         //添加物品消失倒计时
-        customName += getTimeBeforeDespawn(item);
+        suffix += getTimeBeforeDespawn(item);
         //设置自定义名称
-        item.setCustomName(customName);
+        item.customName(translatableComponent.append(Component.text(suffix)));
     }
 
     public static String getTimeBeforeDespawn(Item item) {
